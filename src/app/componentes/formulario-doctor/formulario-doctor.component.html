@@ -1,0 +1,70 @@
+<div class="col-md-6 offset-md-3" >
+  <div class="card text-center">
+      <div class="card-header text-white" style="background-color: rgb(80, 4, 19)" >
+          DOCTOR
+         </div>
+      <div class="card-body">
+        <form>
+            <div class="form-group">
+                <input type="text" onkeyup="javascript:this.value=this.value.toUpperCase();" name="cedulaDoctor" placeholder="Cédula del Doctor" [(ngModel)]="persona.PER_CEDULA" class="form-control" >
+            </div>
+            <div class="form-group">
+              <input type="text" onkeyup="javascript:this.value=this.value.toUpperCase();" name="nombreDoctor" placeholder="Nombre del Doctor" [(ngModel)]="persona.PER_NOMBRES" class="form-control" >
+            </div>
+            <div class="form-group">
+              <input type="text" onkeyup="javascript:this.value=this.value.toUpperCase();" name="apellidoDoctor" placeholder="Apellido del Doctor" [(ngModel)]="persona.PER_APELLIDOS" class="form-control" > 
+            </div>
+            <div class="form-group">
+                <p align="left">ESPECIALIDAD </p>
+                <select class="form-control" name="numeroAux" [(ngModel)]="especialidadAux.ESP_NOMBRE"> 
+                    <option *ngFor="let especialidad of especialidad" value="{{especialidad.ESP_ID}}" >{{especialidad.ESP_NOMBRE}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+              <p align="left" >GÉNERO </p>
+              <label class="radio-inline"><input type="radio" name="optradio" checked value="MASCULINO" [(ngModel)]="persona.PER_GENERO">  MASCULINO &nbsp;</label>
+              <label class="radio-inline"><input type="radio" name="optradio" value="FEMENINO" [(ngModel)]="persona.PER_GENERO">FEMENINO </label>
+            </div>
+            <div class="form-group">
+              <p align="left">TIPO DE SANGRE </p>
+              <select class="form-control" name="numero" [(ngModel)]="persona.PER_TIPO_SANGRE"> 
+                  <option value="O+" >O+</option>
+                  <option value="O-" >O-</option>
+                  <option value="A+" >A+</option>
+                  <option value="A-" >A-</option>
+                  <option value="B+" >B+</option>
+                  <option value="B-" >B-</option>
+                  <option value="AB+" >AB+</option>
+                  <option value="AB-" >AB-</option>
+              </select>
+          </div>
+            <div class="form-group">
+              <input type="text" onkeyup="javascript:this.value=this.value.toUpperCase();" name="numeroDoctor" placeholder="Número del Doctor" [(ngModel)]="persona.PER_TELEFONO" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" onkeyup="javascript:this.value=this.value.toUpperCase();" name="direccionDoctor" placeholder="Dirección del Doctor" [(ngModel)]="persona.PER_DIRECCION" class="form-control">
+            </div>
+           <button class="btn btn-success btn-block" (click)="editar ? actualizarPersona(content) : guardarPersona(content)">
+             GUARDAR
+           </button>
+        </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="aux">
+      <div class="modal-header text-white" style="background-color:rgb(80, 4, 19)" >
+        <h4 class="modal-title text-white">ADVERNTECIA !</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span style="color:white" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Se han realizados los cambios correctamente</p>
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-success " (click)="modal.close('Close click')">CERRAR</button>
+      </div>
+    </div>
+</ng-template>

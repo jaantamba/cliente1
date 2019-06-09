@@ -1,0 +1,103 @@
+<h1>PACIENTE</h1>
+<div class="container">
+    <form class="form-inline my-4 my-lg-4">
+        <input type="text" name="nombreCliente" placeholder="Buscar Paciente" [(ngModel)]="nombre" class="form-control mr-sm-2" autofocus>
+        <button class="btn btn-outline-info my-2 my-sm-0"  (click)="buscarPaciente(nombre)">BUSCAR</button>
+      </form>
+</div>
+
+<table mdbTable class="z-depth-1">
+        <thead>
+          <tr>
+            <th style="color: teal" *ngFor="let head of headElements; let i = index" scope="col">{{head}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="color: teal" *ngFor="let paciente of paciente; let i = index">
+            <td style="color: teal" *ngIf='i+1 >= firstItemIndex && i < lastItemIndex' scope="row" >{{paciente.PAC_CEDULA}}</td>
+            <td style="color: teal" *ngIf='i+1 >= firstItemIndex && i < lastItemIndex'>{{paciente.PAC_NOMBRES}}</td>
+            <td style="color: teal" *ngIf='i+1 >= firstItemIndex && i < lastItemIndex'>{{paciente.PAC_APELLIDOS}}</td>
+            <td *ngIf='i+1 >= firstItemIndex && i < lastItemIndex'>
+              <!--
+              <a [routerLink]="['/personas/citas/agregar',persona.id_persona]" class="btn btn-success">
+                AGENDAR TRABAJO
+              </a>-->
+            <a [routerLink]="['/personas/editar/paciente',paciente.PAC_ID]" class="btn btn-info"><i class="fas fa-pen"></i>&nbsp;
+            </a>
+            <a routerLink="/personas/paciente/todos" class="btn btn-warning " (click)="detallePaciente(paciente,contentDetalle)"><i class="fas fa-info"></i>&nbsp;
+            </a>
+              <a routerLink="/personas/paciente/todos" class="btn btn-danger " (click)="eliminarPersona(paciente,content)"><i class="fas fa-trash"></i>
+              </a>
+              <a routerLink="/personas/paciente/signos" class="btn btn-success"><i class="fas fa-diagnoses"></i>
+              </a>
+            </td>
+            <ng-template #content let-modal>
+                <div class="aux">
+                  <div class="modal-header text-white" style="background-color:rgb(80, 4, 19)" >
+                    <h4 class="modal-title text-white">ADVERNTECIA !</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span style="color:white" aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div style="color: teal" class="modal-body">
+                    <p>¿ Desea eliminar a {{paciente.PAC_NOMBRES}} {{paciente.PAC_APELLIDOS}} ?</p>
+                  </div>
+                  <div class="modal-footer ">
+                    <button type="button" class="btn btn-success " (click)="modal.close('Close click')">CERRAR</button>
+                    <button type="button" class="btn btn-danger " (click)="eliminarPaciente(paciente.PAC_ID)">ELIMINAR</button>
+                  </div>
+                </div>
+            </ng-template>
+
+            <ng-template #contentDetalle let-modal>
+                <div class="aux">
+                  <div class="modal-header text-white" style="background-color:rgb(80, 4, 19)" >
+                    <h4 class="modal-title text-white">DETALLE DE PACIENTE</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span style="color:white" aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body"> 
+                          <div class="card text-center">
+                            <div class="card-header text-white" style="background-color: rgb(80, 4, 19)" >
+                              {{paciente.PAC_NOMBRES}}
+                              {{paciente.PAC_APELLIDOS}}
+                            </div>
+                            <div class="card-body">
+                                <p style="color: rgb(50, 51, 51)">CÉDULA</p>
+                              <p style="color: teal">
+                                {{paciente.PAC_CEDULA}}
+                              </p>
+                              <p style="color: rgb(50, 51, 51)">DIRECCIÓN</p>
+                              <p style="color: teal">
+                                {{paciente.PAC_DIRECCION}}
+                              </p>
+                              <p style="color: rgb(50, 51, 51)">TELÉFONO</p>
+                              <p style="color: teal">
+                                {{paciente.PAC_TELEFONO}}
+                              </p>
+                              <p style="color: rgb(50, 51, 51)">TIPO DE SANGRE</p>
+                              <p style="color: teal">
+                                {{paciente.PAC_TIPO_SANGRE}}
+                              </p>
+                            </div> 
+                          </div>
+                  </div>
+                  <div class="modal-footer ">
+                    <button type="button" class="btn btn-success " (click)="modal.close('Close click')">CERRAR</button>
+                  </div>
+                </div>
+            </ng-template>
+            
+          </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+          <tr>
+            <td style="color: teal" colspan="4">
+              <mdb-table-pagination (nextPageClick)="onNextPageClick($event)" (previousPageClick)="onPreviousPageClick($event)">
+              </mdb-table-pagination>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
